@@ -4,16 +4,20 @@ const handlebars = require('express-handlebars');
 
 //Config
     //Template Engine
-    app.engine('handlebars', handlebars({defaultLayout: 'main'}))
+    app.engine('handlebars', handlebars.engine({defaultLayout: 'main'}))
     app.set('view engine', 'handlebars')
 
-    //conexão com MySQL
+    //Conexão com MySQL
     const Sequelize = require('sequelize');
     const sequelize = new Sequelize('nomedobancodedados', 'root', '123456', {
     host: 'localhost',
     dialect: 'mysql' 
 });
-
+~
+    //Rota
+    app.get('/cadastropostagem', (req, res) => {
+        res.render('formulario')
+    })  
 
 
 
