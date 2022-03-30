@@ -16,7 +16,7 @@ const Post = require('./model/Post');
 
     //Rota
     app.get('/', (req, res) =>{
-        Post.findAll().then(function(posts){
+        Post.findAll({order: [['id', 'DESC']]}).then(function(posts){
             res.render('home', {posts: posts})
         })        
     })
@@ -35,6 +35,15 @@ const Post = require('./model/Post');
         }).catch(function(erro) {
             res.send('Houve um erro: ' + erro)
         })       
+    })
+
+    app.post('/deletar/:id', (req, res)=>{
+        const { id } = req.params
+        Post.destroy({where: {id: Number(id)}}).then(() => {
+            res.send('Postagem deletada com sucesso!')
+        }).catch((erro)=> {
+            res.send('Essa postagem não existe!')
+        })
     })
 
 
